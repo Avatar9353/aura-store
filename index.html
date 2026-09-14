@@ -282,7 +282,8 @@
       const form = e.target;
       const orderId = '#AURA-' + Math.floor(100000 + Math.random() * 900000);
       document.getElementById('orderIdField').value = orderId;
-      document.getElementById('orderSummaryField').value = JSON.stringify(cart);
+      document.getElementById('orderSummaryField').value = cart.map(item => `${item.name} (Qty: ${item.qty}) - ₹${item.price * item.qty}`).join(' | ');
+      
 
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
