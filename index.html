@@ -4,10 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aura Store | Minimalist Essentials</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     body { font-family: 'Inter', sans-serif; }
@@ -17,14 +14,12 @@
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased min-h-screen flex flex-col custom-scroll">
 
-  <!-- Navigation Bar -->
-  <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <span class="text-xl font-black tracking-widest text-white uppercase">AURA<span class="text-indigo-500">.</span></span>
-      </div>
+      <span class="text-xl font-black tracking-widest text-white uppercase">AURA<span class="text-indigo-500">.</span></span>
       <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-full bg-slate-900 border border-slate-800 hover:border-slate-700 transition">
-        <i data-lucide="shopping-bag" class="w-5 h-5 text-slate-300"></i>
+        <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
         <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-indigo-600 text-white text-[11px] font-bold rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
       </button>
     </div>
@@ -47,7 +42,7 @@
         placeholder="Search products by title or category..." 
         class="w-full pl-10 pr-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm"
       />
-      <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5"></i>
+      <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
     </div>
   </div>
 
@@ -56,12 +51,10 @@
     <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
   </main>
 
-  <!-- Product Detail Modal (Description, Size, Color, Buy Now) -->
+  <!-- Product Detail Modal -->
   <div id="productModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden flex flex-col relative max-h-[90vh]">
-      <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-800/80 text-slate-400 hover:text-white">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white">✕</button>
       
       <div class="h-64 sm:h-72 overflow-hidden bg-slate-800 relative flex-shrink-0">
         <img id="modalImg" src="" alt="Product" class="w-full h-full object-cover">
@@ -76,41 +69,39 @@
 
         <p id="modalDesc" class="text-sm text-slate-400 leading-relaxed"></p>
 
-        <!-- Size Options -->
+        <!-- Sizes -->
         <div id="sizeSection">
           <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Select Size</label>
           <div id="sizeOptions" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- Color Options -->
+        <!-- Colors -->
         <div id="colorSection">
           <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Select Color</label>
           <div id="colorOptions" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- Action Buttons -->
+        <!-- Buttons -->
         <div class="grid grid-cols-2 gap-3 pt-2">
-          <button onclick="addCurrentModalToCart()" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm transition flex items-center justify-center gap-2">
-            <i data-lucide="shopping-bag" class="w-4 h-4"></i> Add to Cart
+          <button onclick="addCurrentModalToCart()" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm transition">
+            Add to Cart
           </button>
-          <button onclick="buyNowCurrentModal()" class="py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition flex items-center justify-center gap-2">
-            <i data-lucide="zap" class="w-4 h-4"></i> Buy Now
+          <button onclick="buyNowCurrentModal()" class="py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition">
+            Buy Now
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Cart Slide-Over Drawer -->
+  <!-- Cart Drawer -->
   <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
-    <div onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
+    <div onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
     <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
       <div class="w-screen max-w-md bg-slate-900 border-l border-slate-800 flex flex-col p-6 shadow-2xl">
         <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <i data-lucide="shopping-bag" class="w-5 h-5 text-indigo-400"></i> Your Bag
-          </h2>
-          <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+          <h2 class="text-lg font-bold text-white">Your Bag</h2>
+          <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-white text-lg">✕</button>
         </div>
 
         <div id="cartItemsContainer" class="flex-grow overflow-y-auto py-4 space-y-4 custom-scroll"></div>
@@ -128,12 +119,10 @@
     </div>
   </div>
 
-  <!-- Checkout Address Form Modal (Formspree: xbgjvpqn) -->
+  <!-- Checkout Address Modal -->
   <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-6 relative max-h-[95vh] overflow-y-auto custom-scroll">
-      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
       <h2 class="text-xl font-bold text-white mb-4">Complete Delivery Address</h2>
       
       <form id="orderForm" action="https://formspree.io/f/xbgjvpqn" method="POST" class="space-y-4 text-sm">
@@ -185,9 +174,7 @@
   <!-- Success Confirmation Modal -->
   <div id="successModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4 text-center">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-8">
-      <div class="w-14 h-14 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/30">
-        <i data-lucide="check" class="w-7 h-7"></i>
-      </div>
+      <div class="w-14 h-14 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/30 text-2xl">✓</div>
       <h3 class="text-xl font-bold text-white">Order Received!</h3>
       <p class="text-slate-400 text-xs mt-1">Order Ref: <span id="confirmedOrderId" class="font-mono text-indigo-400 font-bold"></span></p>
       <p class="text-slate-400 text-sm mt-3">We have received your order details and will begin dispatch shortly.</p>
@@ -197,9 +184,8 @@
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- Script -->
   <script>
-    // Product Catalog Data - Customize items, descriptions, sizes, colors, and prices here
     const products = [
       {
         id: 1,
@@ -207,7 +193,7 @@
         price: 3499,
         category: "Bags",
         img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
-        desc: "Handcrafted water-resistant waxed canvas duffel with brass hardware and reinforced strap stitching. Built for weekend getaways and rugged daily travel.",
+        desc: "Handcrafted water-resistant waxed canvas duffel with brass hardware and reinforced strap stitching.",
         sizes: ["Standard", "Extra Large"],
         colors: ["Charcoal", "Olive Green", "Desert Tan"]
       },
@@ -217,7 +203,7 @@
         price: 1299,
         category: "Desk",
         img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
-        desc: "Micro-woven felt desk mat with anti-slip rubber backing. Offers optimal mouse gliding resistance and protects desk surface finishes.",
+        desc: "Micro-woven felt desk mat with anti-slip rubber backing. Offers optimal mouse gliding resistance.",
         sizes: ["Medium (70x30cm)", "Large (90x40cm)"],
         colors: ["Dark Slate", "Light Grey"]
       },
@@ -227,7 +213,7 @@
         price: 1899,
         category: "Gear",
         img: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80",
-        desc: "Machined from aircraft-grade titanium alloy with a precision bolt-action mechanism. Compatible with Schmidt EasyFlow 9000 ink refills.",
+        desc: "Machined from aircraft-grade titanium alloy with a precision bolt-action mechanism.",
         sizes: ["One Size"],
         colors: ["Matte Black", "Stonewashed Grey"]
       },
@@ -237,7 +223,7 @@
         price: 2499,
         category: "Lifestyle",
         img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
-        desc: "Double-fired stoneware dripper and serving carafe engineered with interior thermal ridges for precise coffee extraction temperature stability.",
+        desc: "Double-fired stoneware dripper and serving carafe engineered with interior thermal ridges.",
         sizes: ["500ml", "800ml"],
         colors: ["Matte Obsidian", "Chalk White"]
       }
@@ -248,9 +234,9 @@
     let selectedSize = '';
     let selectedColor = '';
 
-    // Render Product Cards
     function renderProducts(items = products) {
       const grid = document.getElementById('productGrid');
+      if (!grid) return;
       if (items.length === 0) {
         grid.innerHTML = '<div class="col-span-full text-center py-16 text-slate-500 text-sm">No items found matching your search.</div>';
         return;
@@ -267,24 +253,21 @@
             <p class="text-slate-400 text-xs mt-1 line-clamp-2">${p.desc}</p>
             <div class="mt-auto pt-4 flex items-center justify-between">
               <span class="font-black text-lg text-white">₹${p.price.toLocaleString('en-IN')}</span>
-              <button onclick="event.stopPropagation(); openProductModal(${p.id});" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-xs font-semibold text-white flex items-center gap-1">
+              <button type="button" onclick="event.stopPropagation(); openProductModal(${p.id});" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-xs font-semibold text-white">
                 View
               </button>
             </div>
           </div>
         </div>
       `).join('');
-      lucide.createIcons();
     }
 
-    // Live Search Filter
     function handleSearch(query) {
-      const q = query.toLowerCase().trim();
+      const q = (query || '').toLowerCase().trim();
       const filtered = products.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
       renderProducts(filtered);
     }
 
-    // Open Product Detail Modal
     function openProductModal(id) {
       selectedProduct = products.find(p => p.id === id);
       if (!selectedProduct) return;
@@ -295,7 +278,6 @@
       document.getElementById('modalPrice').innerText = '₹' + selectedProduct.price.toLocaleString('en-IN');
       document.getElementById('modalDesc').innerText = selectedProduct.desc;
 
-      // Render sizes
       selectedSize = selectedProduct.sizes[0] || 'Standard';
       document.getElementById('sizeOptions').innerHTML = selectedProduct.sizes.map((s, idx) => `
         <button type="button" onclick="selectSize('${s}', this)" class="size-btn px-3 py-1.5 rounded-lg text-xs font-medium border ${idx === 0 ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'}">
@@ -303,7 +285,6 @@
         </button>
       `).join('');
 
-      // Render colors
       selectedColor = selectedProduct.colors[0] || 'Default';
       document.getElementById('colorOptions').innerHTML = selectedProduct.colors.map((c, idx) => `
         <button type="button" onclick="selectColor('${c}', this)" class="color-btn px-3 py-1.5 rounded-lg text-xs font-medium border ${idx === 0 ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'}">
@@ -312,7 +293,6 @@
       `).join('');
 
       document.getElementById('productModal').classList.remove('hidden');
-      lucide.createIcons();
     }
 
     function selectSize(size, el) {
@@ -335,7 +315,6 @@
       document.getElementById('productModal').classList.add('hidden');
     }
 
-    // Add current modal selection to Cart
     function addCurrentModalToCart() {
       if (!selectedProduct) return;
       const cartItemId = `${selectedProduct.id}-${selectedSize}-${selectedColor}`;
@@ -359,14 +338,12 @@
       toggleCartDrawer(true);
     }
 
-    // Buy Now: adds to cart and immediately shows delivery checkout form
     function buyNowCurrentModal() {
       addCurrentModalToCart();
       toggleCartDrawer(false);
       openCheckoutModal();
     }
 
-    // Update Cart Drawer & Badges
     function updateCartUI() {
       const count = cart.reduce((sum, item) => sum + item.qty, 0);
       const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
@@ -380,9 +357,25 @@
 
       if (cart.length === 0) {
         container.innerHTML = '<div class="text-center py-12 text-slate-500 text-sm">Your cart is empty.</div>';
-        document.getElementById('checkoutTriggerBtn').disabled = true;
-        document.getElementById('checkoutTriggerBtn').classList.add('opacity-50', 'pointer-events-none');
+        const trigger = document.getElementById('checkoutTriggerBtn');
+        trigger.disabled = true;
+        trigger.classList.add('opacity-50', 'pointer-events-none');
         return;
       }
 
-     
+      const trigger = document.getElementById('checkoutTriggerBtn');
+      trigger.disabled = false;
+      trigger.classList.remove('opacity-50', 'pointer-events-none');
+
+      container.innerHTML = cart.map((item, idx) => `
+        <div class="flex gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800">
+          <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+          <div class="flex-grow flex flex-col justify-between">
+            <div>
+              <h4 class="text-white text-xs font-bold line-clamp-1">${item.name}</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5">${item.size} | ${item.color}</p>
+            </div>
+            <div class="flex items-center justify-between mt-2">
+              <span class="text-xs font-bold text-indigo-400">₹${(item.price * item.qty).toLocaleString('en-IN')}</span>
+              <div class="flex items-center gap-2">
+                <button onclick="changeQty(${idx}, -1)" class="w-5 h-5 bg-slate-800 rounded flex items-center justify-center text-xs text-slate-300">-</b
